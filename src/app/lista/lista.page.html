@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title size="small">{{lista.nombre}}</ion-title>
+    <ion-fab-button size="small" color="danger" (click)="goEditProducto(lista.id)" slot="end">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="ion-padding">
+    <ion-list>
+      <ion-item *ngFor="let t of lista.productos">
+        <ion-label color="dark">
+          <h2><a [style.text-decoration]="t.marcado ? 'line-through' : 'none'" (click)="goEditProducto(lista.id, t.id)">
+              {{ t.nombre }}</a></h2>
+          <p>Ud: {{t.cantidad}} Precio: <ion-text color="danger">{{t.precio}}</ion-text>
+          </p>
+        </ion-label>
+        <ion-icon slot="start" name="close" (click)="presentAlertConfirm(t.id, t.nombre)">
+        </ion-icon>
+        <ion-checkbox slot="end" [(ngModel)]="t.marcado" (ionChange)="onSelect()"></ion-checkbox>
+      </ion-item>
+      <ion-item *ngIf="lista.productos.length>0">
+        <ion-icon slot="start" name="calculator"></ion-icon>
+        <ion-chip color="danger">
+          <ion-label>{{lista.total.toFixed(2)}}</ion-label>
+        </ion-chip>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div class="ion-padding">
+    <ion-button icon-start (click)="nuevaLista(lista)" expand="block" type="submit" class="ion-no-margin">
+      <ion-icon name="copy-outline"> </ion-icon>
+      Reutilizar lista
+    </ion-button>
+  </div>
+  <div class="ion-padding">
+    <ion-button (click)="compartir(lista.productos, lista.nombre)" expand="block" type="submit" class="ion-no-margin">
+      <ion-icon slot="icon-only" name="share"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>

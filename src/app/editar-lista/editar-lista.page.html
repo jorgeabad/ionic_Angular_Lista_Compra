@@ -1,0 +1,39 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Crear Lista</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list lines="full" class="ion-no-margin ion-no-padding">
+    <ion-item>
+      <ion-label position="stacked">Nombre de la lista <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="lista.nombre" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Fecha <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-datetime displayFormat="DD/MMM/YYYY" pickerFormat="DD/MMM/YYYY" [(ngModel)]="lista.fecha"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="(lista.coordenadas.latitud!=null)">
+      <ion-label position="stacked">Latitud <ion-text color="danger"></ion-text>
+      </ion-label>
+      <ion-input type="number" clearInput [(ngModel)]="lista.coordenadas.latitud" required></ion-input>
+    </ion-item>
+    <ion-item *ngIf="lista.coordenadas.longitud!=null">
+      <ion-label position="stacked">Longitud <ion-text color="danger"></ion-text>
+      </ion-label>
+      <ion-input type="number" clearInput [(ngModel)]="lista.coordenadas.longitud" required></ion-input>
+    </ion-item>
+  </ion-list>
+  <div class="ion-padding">
+    <ion-button (click)="getUbicacion()" expand="block">Añadir localización</ion-button>
+  </div>
+  <div class="ion-padding">
+    <ion-button (click)="guardar()" expand="block" type="submit" class="ion-no-margin">Guardar Lista</ion-button>
+  </div>
+</ion-content>
